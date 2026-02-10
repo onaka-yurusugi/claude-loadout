@@ -41,7 +41,6 @@ function formationReducer(
     case "SET_SCENARIO":
       return { ...state, scenario: action.payload };
     case "ADD_SLOT":
-      if (state.slots.length >= 10) return state;
       return { ...state, slots: [...state.slots, action.payload] };
     case "UPDATE_SLOT":
       return {

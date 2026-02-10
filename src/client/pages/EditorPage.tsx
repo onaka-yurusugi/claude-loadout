@@ -1,43 +1,17 @@
-import { useState, useEffect } from "react";
-import type { Slot } from "../lib/types";
+import { useEffect } from "react";
 import { useFormation } from "../hooks/useFormation";
 import { FormationHeader } from "../components/FormationHeader";
-import { SlotGrid } from "../components/SlotGrid";
-import { SlotModal } from "../components/SlotModal";
+import { CategorySection } from "../components/CategorySection";
 import { ShareBar } from "../components/ShareBar";
+import { CATEGORY_ORDER } from "../lib/presets";
 
 export function EditorPage() {
   const { formation, dispatch, saveDraft } = useFormation();
-  const [modalSlot, setModalSlot] = useState<Slot | null | "new">(null);
 
   // Auto-save draft
   useEffect(() => {
     saveDraft(formation);
   }, [formation, saveDraft]);
-
-  const handleSlotClick = (slot: Slot) => {
-    setModalSlot(slot);
-  };
-
-  const handleEmptyClick = () => {
-    setModalSlot("new");
-  };
-
-  const handleSave = (slot: Slot) => {
-    if (modalSlot === "new") {
-      dispatch({ type: "ADD_SLOT", payload: slot });
-    } else {
-      dispatch({ type: "UPDATE_SLOT", payload: slot });
-    }
-    setModalSlot(null);
-  };
-
-  const handleDelete = () => {
-    if (modalSlot && modalSlot !== "new") {
-      dispatch({ type: "REMOVE_SLOT", payload: modalSlot.id });
-    }
-    setModalSlot(null);
-  };
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
@@ -50,29 +24,22 @@ export function EditorPage() {
       {/* Formation Header */}
       <FormationHeader formation={formation} dispatch={dispatch} />
 
-      {/* Slot Grid */}
-      <div className="mt-6">
-        <SlotGrid
-          slots={formation.slots}
-          onSlotClick={handleSlotClick}
-          onEmptyClick={handleEmptyClick}
-        />
+      {/* Category Sections */}
+      <div className="mt-6 space-y-4">
+        {CATEGORY_ORDER.map((category) => (
+          <CategorySection
+            key={category}
+            category={category}
+            slots={formation.slots}
+            dispatch={dispatch}
+          />
+        ))}
       </div>
 
       {/* Share Bar */}
       <div className="mt-6">
         <ShareBar formation={formation} />
       </div>
-
-      {/* Modal */}
-      {modalSlot !== null && (
-        <SlotModal
-          slot={modalSlot === "new" ? null : modalSlot}
-          onSave={handleSave}
-          onDelete={modalSlot !== "new" ? handleDelete : undefined}
-          onClose={() => setModalSlot(null)}
-        />
-      )}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import type { SlotCategory } from "./types";
 
-export const MAX_SLOTS = 10;
 
 export const CATEGORY_CONFIG: Record<
   SlotCategory,

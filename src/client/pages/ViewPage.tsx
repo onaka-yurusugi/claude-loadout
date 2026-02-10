@@ -1,11 +1,40 @@
 import { useMemo } from "react";
 import { decodeFormation } from "../lib/encoding";
 import { FormationHeader } from "../components/FormationHeader";
-import { SlotGrid } from "../components/SlotGrid";
+import { SelectedItems } from "../components/SelectedItems";
+import { CATEGORY_CONFIG } from "../lib/constants";
+import { CATEGORY_ORDER } from "../lib/presets";
+import type { Slot, SlotCategory } from "../lib/types";
 
 type Props = {
   encoded: string;
 };
+
+function ViewCategorySection({
+  category,
+  slots,
+}: {
+  category: SlotCategory;
+  slots: Slot[];
+}) {
+  const filtered = slots.filter((s) => s.category === category);
+  if (filtered.length === 0) return null;
+
+  const cat = CATEGORY_CONFIG[category];
+
+  return (
+    <div className="rounded-lg border border-border-subtle bg-bg-card/30 p-4">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-lg">{cat.icon}</span>
+        <span className="text-sm font-bold text-white">{cat.label}</span>
+        <span className="text-xs text-text-secondary">
+          {filtered.length} 件
+        </span>
+      </div>
+      <SelectedItems slots={filtered} onRemove={() => {}} readonly />
+    </div>
+  );
+}
 
 export function ViewPage({ encoded }: Props) {
   const formation = useMemo(() => decodeFormation(encoded), [encoded]);
@@ -44,14 +73,15 @@ export function ViewPage({ encoded }: Props) {
         readonly
       />
 
-      {/* Slot Grid (readonly) */}
-      <div className="mt-6">
-        <SlotGrid
-          slots={formation.slots}
-          onSlotClick={() => {}}
-          onEmptyClick={() => {}}
-          readonly
-        />
+      {/* Category Sections */}
+      <div className="mt-6 space-y-4">
+        {CATEGORY_ORDER.map((category) => (
+          <ViewCategorySection
+            key={category}
+            category={category}
+            slots={formation.slots}
+          />
+        ))}
       </div>
 
       {/* Actions */}
