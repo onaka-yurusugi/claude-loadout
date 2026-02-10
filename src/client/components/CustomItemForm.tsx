@@ -24,39 +24,45 @@ export function CustomItemForm({ category: _category, onAdd }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-2 flex items-center gap-1.5 rounded-lg border border-dashed border-border-subtle px-3 py-1.5 text-xs text-text-secondary hover:border-accent hover:text-accent transition-colors"
+        className="mt-2 flex items-center gap-2 text-xs text-text-secondary hover:text-accent transition-colors font-semibold tracking-wide uppercase group"
       >
-        <span>＋</span>
-        <span>カスタム追加</span>
+        <span className="text-[10px] transition-transform group-hover:rotate-90 duration-200">＋</span>
+        <span>Custom Add</span>
       </button>
     );
   }
 
   return (
-    <div className="mt-2 rounded-lg border border-border-subtle bg-bg-card/50 p-3 space-y-2">
+    <div className="mt-3 space-y-2 border-t border-border-subtle pt-3">
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="名前"
         autoFocus
-        className="w-full rounded border border-border-subtle bg-bg-primary px-2 py-1.5 text-sm text-white placeholder:text-text-secondary/50 focus:border-accent focus:outline-none"
+        className="input-tactical text-sm"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleAdd();
+        }}
       />
       <input
         type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="説明（任意）"
-        className="w-full rounded border border-border-subtle bg-bg-primary px-2 py-1.5 text-sm text-white placeholder:text-text-secondary/50 focus:border-accent focus:outline-none"
+        className="input-tactical text-sm"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleAdd();
+        }}
       />
-      <div className="flex gap-2">
+      <div className="flex gap-2 pt-1">
         <button
           type="button"
           onClick={handleAdd}
           disabled={!name.trim()}
-          className="rounded bg-accent px-3 py-1 text-xs font-semibold text-white hover:bg-accent/80 disabled:opacity-40 transition-colors"
+          className="btn-tactical btn-tactical-primary text-[10px] !py-1.5 !px-3"
         >
-          追加
+          ADD
         </button>
         <button
           type="button"
@@ -65,9 +71,9 @@ export function CustomItemForm({ category: _category, onAdd }: Props) {
             setName("");
             setDescription("");
           }}
-          className="rounded border border-border-subtle px-3 py-1 text-xs text-text-secondary hover:bg-bg-card transition-colors"
+          className="btn-tactical text-[10px] !py-1.5 !px-3"
         >
-          キャンセル
+          CANCEL
         </button>
       </div>
     </div>

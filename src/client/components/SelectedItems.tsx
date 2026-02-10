@@ -17,22 +17,23 @@ export function SelectedItems({ slots, onRemove, readonly }: Props) {
         return (
           <span
             key={slot.id}
-            className="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-xs"
+            className="eq-chip"
             style={{
-              borderColor: `${cat.color}40`,
-              backgroundColor: `${cat.color}10`,
+              borderColor: `${cat.color}35`,
+              backgroundColor: `${cat.color}0a`,
               color: cat.color,
+              ["--_chip-glow" as string]: `${cat.color}40`,
             }}
             title={slot.description}
           >
-            {slot.name}
+            <span className="truncate max-w-[180px]">{slot.name}</span>
             {!readonly && (
               <button
                 type="button"
                 onClick={() => onRemove(slot.id)}
-                className="ml-0.5 opacity-60 hover:opacity-100 transition-opacity"
+                className="ml-1 opacity-50 hover:opacity-100 transition-opacity text-[10px]"
               >
-                ×
+                ✕
               </button>
             )}
           </span>

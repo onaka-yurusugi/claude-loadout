@@ -27,25 +27,35 @@ export function ShareBar({ formation }: Props) {
   };
 
   return (
-    <div className="flex gap-3">
-      <button
-        type="button"
-        onClick={handleCopyUrl}
-        disabled={!isValid}
-        className="flex items-center gap-2 rounded-lg bg-bg-card border border-border-subtle px-4 py-2.5 text-sm font-semibold text-white hover:bg-bg-card/80 disabled:opacity-40 transition-colors"
-      >
-        <span>{copied ? "✅" : "📋"}</span>
-        {copied ? "コピーしました！" : "URL をコピー"}
-      </button>
-      <button
-        type="button"
-        onClick={handleTwitterShare}
-        disabled={!isValid}
-        className="flex items-center gap-2 rounded-lg bg-black border border-white/20 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10 disabled:opacity-40 transition-colors"
-      >
-        <span>𝕏</span>
-        X でシェア
-      </button>
+    <div className="hud-frame p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="hex-separator flex-1">DEPLOY</div>
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={handleCopyUrl}
+          disabled={!isValid}
+          className="btn-deploy"
+        >
+          <span>{copied ? "✓" : "◈"}</span>
+          {copied ? "COPIED" : "COPY URL"}
+        </button>
+        <button
+          type="button"
+          onClick={handleTwitterShare}
+          disabled={!isValid}
+          className="btn-tactical"
+        >
+          <span>𝕏</span>
+          SHARE
+        </button>
+      </div>
+      {!isValid && (
+        <p className="text-center text-xs text-text-secondary/50 mt-3 font-[family-name:var(--font-orbitron)] tracking-wider uppercase">
+          編成名とスロット1個以上が必要です
+        </p>
+      )}
     </div>
   );
 }
