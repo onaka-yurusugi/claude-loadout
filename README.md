@@ -5,8 +5,8 @@
 Claude Code で使うモデル・MCP サーバー・プラグイン・スキル・CLAUDE.md ルールなどの構成を、ゲームの装備編成画面のように視覚的に組み立て、URL ひとつで誰でもシェアできるプラットフォームです。
 
 <!-- スクリーンショットをここに貼ってください -->
-<!-- ![Editor](docs/screenshots/editor.png) -->
-<!-- ![View](docs/screenshots/view.png) -->
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1bd185f3-68d8-4d19-bec1-5c44b0f6010d" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8a3d815a-9ed2-4a20-a9ed-caa092153ce6" />
 
 ## 特徴
 
